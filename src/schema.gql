@@ -1,0 +1,66 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type TaskPerformerEntity {
+  id: ID!
+  taskId: Int!
+  performerId: Int!
+  performerType: String!
+  patients: [PatientEntity!]
+}
+
+type TaskEntity {
+  id: Int!
+  title: String!
+  description: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  performers: [TaskPerformerEntity!]
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type PatientEntity {
+  id: Int!
+  name: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  tasks: [TaskEntity!]
+}
+
+type Query {
+  findAllPatients: [PatientEntity!]!
+  findPatientById(id: Float!): PatientEntity
+  findAllTasks: [TaskEntity!]!
+  findTaskById(id: Float!): TaskEntity
+  findAll: [TaskPerformerEntity!]!
+  findPerformersByTaskId: [TaskPerformerEntity!]!
+}
+
+type Mutation {
+  createPatient(patient: CreatePatientDto!): PatientEntity!
+  deletePatient(id: Float!): PatientEntity
+  createTask(task: CreateTaskDto!): TaskEntity!
+  remove(id: Float!): TaskEntity
+  createTaskPerformer(taskPerformer: CreateTaskPerformerDto!): TaskPerformerEntity!
+  deleteTaskPerformer(id: Int!): TaskPerformerEntity!
+}
+
+input CreatePatientDto {
+  name: String!
+}
+
+input CreateTaskDto {
+  title: String!
+  description: String!
+}
+
+input CreateTaskPerformerDto {
+  taskId: Int!
+  performerId: Int!
+  performerType: String!
+}
